@@ -27,6 +27,10 @@ python -m unittest discover -s tests -p 'test_community_smoke.py' -v
 
 For physical hardware, read `INSTALLATION.md`, `docs/USB_SETUP.md`, `PROTOCOL_SPEC.md`, and `HARDWARE_VALIDATION_CHECKLIST.md` first. Configure the exact ESP32 target in `firmware/PulseBridgeESP32/board_config.h` before compiling.
 
+## Release snapshot note
+
+The published `v8.0.0-community` tag records the initial public release point, which predates the later upload of the complete Community Edition source tree and documentation-alignment commits. The tag is intentionally preserved rather than moved after publication. For the complete current Community Edition source, use the `main` branch. See `CHANGELOG.md` for details.
+
 ## Verification status
 
 The source V8 archive's strict manifest verified successfully at **287 payload files**. Its bundled validation evidence records **190 Python tests passing on Python 3.12.14**, but that historical evidence is distinguished from the independent checks performed during this Community Edition audit.
