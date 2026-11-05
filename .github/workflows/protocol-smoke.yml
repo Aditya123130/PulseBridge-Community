@@ -13,4 +13,5 @@ jobs:
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -r requirements.txt
       - run: python -m compileall -q pi tools tests
+      - run: python tools/repository_quality.py
       - run: python -m unittest discover -s tests -p 'test_*.py' -v
