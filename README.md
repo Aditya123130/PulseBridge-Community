@@ -49,9 +49,11 @@ Independent checks performed on 5 November 2026 include:
 
 See `PUBLICATION_AUDIT.md` and `RELEASE_READINESS.md` for exact limitations.
 
-## Hardware and AI claims
+## Hardware validation and remaining claims
 
-Physical ESP32 upload, real USB/Pi latency, power/thermal qualification, live broker integration and hosted language-model connectivity are **not independently validated by this Community Edition audit**. The bundled simulator is software evidence only.
+A physical ESP32-to-Raspberry-Pi/Linux USB-UART run was completed on **5 November 2026** using PulseBridge Protocol 3 at 115200 baud with a 20 signals/s steady-state target. The captured 60.60-second run recorded 1,765 messages with zero CRC errors, format errors, timeouts, sequence gaps, I/O errors, or observed ESP32 resets. See [`docs/HARDWARE_VALIDATION.md`](docs/HARDWARE_VALIDATION.md) and the machine-readable evidence under [`docs/hardware-validation/2026-11-05/`](docs/hardware-validation/2026-11-05/).
+
+The Raspberry Pi reported `throttled=0x50005` during that session. The run therefore supports **functional physical hardware and Protocol 3 validation**, but its latency measurements are not presented as a clean, power-qualified performance benchmark. Live broker integration and hosted language-model connectivity also remain outside the validated Community Edition scope. The bundled simulator remains software evidence only.
 
 ## Development
 
