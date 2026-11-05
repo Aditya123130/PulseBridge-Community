@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-05",
+  "source_archive_sha256": "eb2baa2220120ee4f564b147e1ed0ac96a1ffbdef98b8cef98739c03958e54c4",
+  "full_v8_manifest": {"status": "PASS", "files": 287},
+  "source_recorded_full_suite": {"status": "PASS", "tests": 190, "python": "3.12.14", "independent_rerun": false},
+  "independent": {
+    "python_compileall": "PASS",
+    "json_files_parsed": 41,
+    "javascript_files_syntax": 9,
+    "shell_files_syntax": 5,
+    "release_smoke_checks": 7,
+    "native_firmware_profiles": 5,
+    "module_tests_passed": 131,
+    "module_nonpasses": 7,
+    "full_test_rerun": "PARTIAL",
+    "browser_rerun": "BLOCKED_BY_SANDBOX_LOCALHOST_POLICY",
+    "physical_hardware": "NOT_RUN",
+    "hosted_ai": "NOT_RUN"
+  }
+}
