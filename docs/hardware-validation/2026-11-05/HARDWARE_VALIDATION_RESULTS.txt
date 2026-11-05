@@ -1,0 +1,51 @@
+PULSEBRIDGE HARDWARE VALIDATION REPORT
+======================================
+
+Status: STOPPED
+Test Duration: 60.60 seconds
+Transport: USB serial / UART 8N1
+Baud Rate: 115200
+Target Rate: 20.0 signals/sec
+Total Messages: 1765
+
+CLASSIFICATION RESULTS
+----------------------
+BUY: 30
+SELL: 30
+STAY: 937
+WARMUP: 768
+
+PROTOCOL / COMMUNICATION RELIABILITY
+------------------------------------
+CRC Errors: 0
+Format Errors: 0
+Timeouts: 0
+Stale Replies: 0
+Duplicate Sequences: 0
+I/O Errors: 0
+Total Errors: 0
+Sequence Gaps: 0
+ESP32 Resets: 0
+Connections: 1
+
+REQUEST-TO-DECISION LATENCY
+---------------------------
+Average: 8.876 ms
+Minimum: 7.596 ms
+P50: 8.821 ms
+P95: 9.561 ms
+P99: 9.727 ms
+Maximum: 10.040 ms
+Samples: 1765
+
+VALIDATION RESULT
+-----------------
+Physical ESP32 <-> Raspberry Pi USB-UART communication successfully validated.
+Protocol 3 communication completed with 1765 messages and 0 recorded errors.
+The test used synthetic demonstration market-data movements.
+
+NOTE
+----
+These results demonstrate functional hardware and protocol validation.
+They should not be described as exchange-grade HFT latency measurements.
+

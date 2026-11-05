@@ -1,0 +1,15 @@
+=== SYSTEM INFORMATION ===
+Thu  5 Nov 21:03:40 IST 2026
+Linux stockpi 6.18.50+rpt-rpi-v8 #1 SMP PREEMPT Debian 1:6.18.50-1+rpt1 (2026-09-11) aarch64 GNU/Linux
+throttled=0x50005
+temp=47.8'C
+volt=1.2000V
+=== USB DEVICES ===
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 002: ID 0424:2514 Microchip Technology, Inc. (formerly SMSC) USB 2.0 Hub
+Bus 001 Device 003: ID 0424:2514 Microchip Technology, Inc. (formerly SMSC) USB 2.0 Hub
+Bus 001 Device 004: ID 10c4:ea60 Silicon Labs CP210x UART Bridge
+Bus 001 Device 005: ID 0424:7800 Microchip Technology, Inc. (formerly SMSC) 
+=== SERIAL DEVICE ===
+total 0
+lrwxrwxrwx 1 root root 13 Oct  6 05:57 usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0 -> ../../ttyUSB0
