@@ -2,18 +2,27 @@
 
 | Symptom | Check / action |
 |---|---|
-| Firmware refuses compilation | Set the verified explicit board profile using `tools/configure_firmware.py`; profile 0 deliberately refuses a target guess. For the stated classic CP2102 ESP32 use profile 1. |
-| USB device missing | Use a data-capable USB cable, check enumerated ports/dialout membership, close Arduino Serial Monitor and other readers, then run the matching Protocol 3 probe. |
-| No live hardware data | Hardware mode does not silently generate prices when the device is absent. Use demo or protocol-sim explicitly for a software demonstration. |
-| Restored account refuses orders | Review restored holdings and resume in Risk Management. Wait for a fresh quote; deployments need their own explicit resume. |
-| Accepted order stays open | Inspect its type/trigger, quote freshness, configured delay, modeled liquidity, risk rejection note and whether the finite demo has ended. |
-| CSV preview fails | Verify six distinct mapped columns, timestamp unit/timezone, strict ordering, OHLC consistency, positive prices and source provenance. Invalid imports never substitute a demo. |
-| Research rejects final holdout | Those observations were already used by another recorded experiment. New labels/formatting do not create independent observations; use genuinely new data. |
-| Research accepted but no deployment | Check enabled/unpaused promotion policy, whitelist, synthetic mode, symbol, interval, costs, sizing and independent account risk. Inspect the promotion audit/report. |
-| Resume refuses a checkpoint | Restore its original research policy/budgets. Exhausted time/evaluation limits are not reset by resume. |
-| AI configured but not verified | Run Settings → Test provider connection. Check server key, exact model ID/URL, token-limit field, quota and provider compatibility. No browser key field exists. |
-| Chat requests too fast | Wait two seconds; provider failures and incomplete streams are visible and not added to completed history. |
-| Dashboard delayed | Check Performance Lab queue/drop counters, API/display/commit timing separately. Reduce `--ui-hz` to 2 or 1, inspect actual storage and CPU, and record a comparable profile before drawing conclusions. |
-| Data-directory lock failure | Stop its existing server or use a different `--data-dir`. Do not delete a lock to run two writers on one account. |
+| Firmware refuses compilation | Select the exact supported board profile in `firmware/PulseBridgeESP32/board_config.h` or use the repository's firmware configuration tooling. The default/invalid profile deliberately prevents target guessing. |
+| USB device is missing | Use a data-capable USB cable, check the enumerated serial port, confirm Linux `dialout` membership, and close Arduino Serial Monitor or any other reader. |
+| Permission denied on serial port | Run `bash setup_pi.sh`; if it adds you to `dialout`, log out and back in before retrying. |
+| Port is busy | Close every other serial monitor, terminal, IDE monitor or PulseBridge process using the device. |
+| Protocol handshake fails | Confirm the host and firmware are both using Protocol 3, start at the expected base settings, and verify the selected board/profile configuration. |
+| CRC or framing errors increase | Check cable quality/connection stability and confirm both sides use the same profile. Preserve the error counts with benchmark results. |
+| No physical data | Confirm the ESP32 is flashed with the canonical Community sketch and that the correct serial device is selected. Software simulation is not a substitute for a physical-hardware claim. |
+| Software fixture works but hardware does not | Treat this as a hardware/serial-path problem: check firmware, port ownership, permissions, cable, power and board selection. |
+| Test import fails | Activate the repository virtual environment and install `requirements.txt`. Confirm Python 3.10+ is being used. |
+| Native C++ test fails to build | Install `g++` (or an equivalent supported C++ compiler) and rerun the test. |
+| Benchmark results vary | Record host load, power/thermal state, request rate, profile, cable, sample count and raw errors. Repeat controlled runs rather than selecting a favorable result. |
+| Timeout/reconnects occur | Inspect physical connection and workload rate. Protocol 3 intentionally performs bounded timeout/recovery and may re-handshake after repeated failures. |
 
-Use clean shutdown and backup before upgrades. Unexpected storage failure must be investigated rather than bypassed. A successful local software test does not prove USB cable, SD-card, power supply or thermal health.
+## Useful checks
+
+```bash
+python3 --version
+.venv/bin/python pi/app.py --list-ports
+.venv/bin/python -m unittest discover -s tests -p 'test_community_smoke.py' -v
+.venv/bin/python -m unittest discover -s tests -p 'test_protocol_v3.py' -v
+bash check.sh
+```
+
+A successful local software test does not prove ESP32 USB timing, Raspberry Pi SD-card behavior, power quality or thermal health. For physical claims, complete `HARDWARE_VALIDATION_CHECKLIST.md`.

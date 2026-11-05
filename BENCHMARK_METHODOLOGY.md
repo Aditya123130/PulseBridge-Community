@@ -1,18 +1,61 @@
-# Reproducible software profiling
+# Benchmark methodology
 
-Run `tools/profile_dashboard.cjs` sequentially against unmodified V7 and V8 on the same host, with fresh data directories and no other QA/research jobs running. Use the same Python, Chromium, viewport, seed, simulated market workload and 4 Hz display setting. Optional Playwright belongs on a development machine.
+PulseBridge Community separates software profiling from physical ESP32-to-host measurements. Results are meaningful only when the timing boundary, transport, workload, environment and validation state are reported together.
 
-```bash
-PYTHON=/path/to/python PB_CHROMIUM=/path/to/chromium \
-  node tools/profile_dashboard.cjs /path/to/V7 /path/to/output-v7
-PYTHON=/path/to/python PB_CHROMIUM=/path/to/chromium \
-  node tools/profile_dashboard.cjs /path/to/V8 /path/to/output-v8
-```
+## What may be benchmarked
 
-The script starts/stops each real server and records raw samples, versions, host characteristics, workload, errors and units. It measures 20 explicit renders on each of 14 views, render-to-next-frame and navigation timings, 80 HTTP state requests, 20 steady-state SSE update sizes, live Market renders and 120 alternating baseline configuration commands. Each configuration command records an actual audit event through the durable writer; the exported ledger must contain all 120. Paper automation remains off. Rendering unchanged state deliberately measures redundant DOM work; live SSE render samples are reported separately.
+The repository includes Community tooling under `tools/` and `pi/benchmark.py` for software/transport experiments. Use the tools that match the experiment being reported; do not describe a PTY/software-fixture result as physical USB latency.
 
-Backend commit/queue timings come from the actual writer. HTTP command acknowledgement includes transport, command scheduling and commit; it is not database latency alone. CPU is a process-tree delta in one-core percentage units. Namespace PIDs are mapped to host `/proc` identities; summed RSS includes shared pages and is not unique physical memory. Timing summaries retain p50/p95/p99, sample counts and raw values. Low-sample navigation/live-render tails are descriptive, not reliable extreme-quantile estimates.
+The historical V8 research archive reported host request-to-classification measurements for controlled synthetic workloads. Those historical results are context, not a guarantee of performance on another board, Pi, cable, OS, power supply or workload.
 
-The final report uses the audited V7/V8 runs in `docs/v8/validation/profile-v7.json` and `profile-v8.json`. Earlier short preliminary runs varied, including a navigation regression; there is no claim that every run or every metric improves. The final database commit tail increased with V8's added checkpoint writes. WAL/FULL and durable acknowledgement remain enabled.
+## Required experiment record
 
-The requested approximately 67 ms commit p95 cannot be causally diagnosed from a screenshot alone. It was not reproduced on this host. A meaningful target diagnosis needs the original workload/sample count, queue and lock waits, filesystem/SD latency, competing writers, Pi power/thermal status and raw traces. V7 already used an asynchronous bounded WAL writer; V8 does not claim to have invented that architecture or fixed the target SD card. Repeat these measurements on the actual Pi 3 B+ and keep physical USB request/classification latency separate from software API, processing, persistence and browser timings.
+For a reproducible physical run, record at minimum:
+
+- ESP32 model and selected board profile;
+- firmware commit SHA;
+- host/Raspberry Pi model and OS;
+- Python version and dependency versions;
+- USB cable/connection path;
+- selected Protocol 3 profile, encoding and baud;
+- warmup and steady request rates;
+- sample count/run duration;
+- exact timing boundary and units;
+- power/undervoltage state when available;
+- thermal/throttling state when available;
+- errors, reconnects, CRC failures, sequence gaps and rejected samples;
+- whether the run is physical hardware, software fixture or simulation.
+
+Use `HARDWARE_VALIDATION_CHECKLIST.md` for physical qualification.
+
+## Controlled comparisons
+
+Change one independent variable at a time whenever causal attribution is intended. In particular, do not attribute a latency difference to binary versus ASCII encoding if baud rate also changes in the same comparison.
+
+A stronger encoding/baud study is a controlled 2×2 design where the supported configuration permits it. If a protocol profile couples encoding and baud, report the result as a **profile comparison**, not as an encoding-only effect.
+
+## Statistics
+
+Keep raw samples where practical. Report sample count and at least median/p50 plus appropriate tail summaries such as p95/p99 when the sample size supports them. Very small samples should be described as descriptive observations rather than reliable extreme-quantile estimates.
+
+Do not remove failed samples silently. Report timeout, reconnect, parser, CRC and sequence/error counts alongside latency summaries.
+
+## Timing interpretation
+
+Host request-to-classification timing includes the host/device path defined by the benchmark implementation. It is not:
+
+- exchange round-trip latency;
+- broker/order execution latency;
+- Internet/network latency;
+- a profitability measurement;
+- an ESP-to-Pi one-way timestamp derived from unsynchronized clocks.
+
+The ESP timestamp in Protocol 3 is metadata. No unsynchronized ESP/Pi timestamp subtraction should be presented as latency.
+
+## Software fixtures
+
+Linux PTY or other software-fixture runs are useful for parser, transport and regression testing. Label them clearly as software results. They cannot validate USB cable behavior, ESP32 target timing, Raspberry Pi power/thermal health, or physical serial performance.
+
+## Before publishing a number
+
+Run the relevant automated tests, record the exact commit, preserve raw output, complete the hardware checklist for physical measurements, and state all limitations. Reproduction by an independent machine or contributor is preferred before making strong performance claims.

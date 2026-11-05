@@ -1,6 +1,10 @@
 {
   "source_zip": "PulseBridge_V8_Autonomous_AI_Research_Workstation(20261105-071236).zip",
   "source_sha256": "eb2baa2220120ee4f564b147e1ed0ac96a1ffbdef98b8cef98739c03958e54c4",
+  "manifest_role": "historical_curation_record",
+  "community_edition_status": "published",
+  "historical_audit_candidate_publishable": false,
+  "status_note": "The original curation candidate was marked non-publishable before final licensing, documentation, review and Community Edition release work. The focused Community Edition was subsequently approved and published; see RELEASE_READINESS.md and PUBLICATION_CHECKLIST.md.",
   "selected_original_files": [
     ".gitignore",
     "ARCHITECTURE.md",
@@ -51,6 +55,5 @@
   "candidate_python_files": 20,
   "syntax_errors": [],
   "smoke_return_code": 0,
-  "credential_pattern_findings": [],
-  "publishable": false
+  "credential_pattern_findings": []
 }
