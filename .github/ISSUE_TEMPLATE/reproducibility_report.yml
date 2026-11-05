@@ -1,0 +1,56 @@
+name: Reproducibility report
+description: Report an independent setup, protocol, benchmark or hardware reproduction
+title: "[Reproduction]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Reproduction reports help distinguish verified results from claims. Both successful and failed reproductions are useful when the environment and procedure are documented.
+  - type: dropdown
+    id: type
+    attributes:
+      label: Reproduction type
+      options:
+        - Installation / setup
+        - Protocol 3 behavior
+        - Software fixture / simulator
+        - Physical ESP32 + Linux/Raspberry Pi
+        - Benchmark / latency
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include board/hardware, OS, Python version, connection type and baud/profile where applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: procedure
+    attributes:
+      label: Exact procedure
+      description: Include commands, configuration and relevant run duration/sample count.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Result
+      description: State what succeeded or failed and include concise output.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Link or describe logs, screenshots, photos or other evidence when available. Do not include secrets.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Verification
+      options:
+        - label: I have stated whether this was software/simulated or physical hardware.
+          required: true
+        - label: I have not included credentials, tokens or private account information.
+          required: true

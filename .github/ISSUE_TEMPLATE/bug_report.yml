@@ -1,0 +1,78 @@
+name: Bug report
+description: Report a reproducible problem in the public Community Edition
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Please provide enough detail for another contributor to reproduce it. Do not include credentials, tokens, private datasets or account identifiers.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - ESP32 firmware
+        - Protocol 3
+        - Linux / Raspberry Pi host
+        - Simulator / software fixture
+        - Benchmarking
+        - Tests / CI
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include hardware/board (if applicable), OS, Python version, connection type and baud/profile.
+      placeholder: |
+        Hardware:
+        OS:
+        Python:
+        Connection/profile:
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest set of commands or steps that reproduces the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Relevant output
+      description: Paste concise logs or error output. Remove secrets and personal information.
+      render: shell
+  - type: dropdown
+    id: evidence
+    attributes:
+      label: Result type
+      description: This helps keep software and physical-hardware claims separate.
+      options:
+        - Software-only / simulator
+        - Physical hardware
+        - Documentation only
+        - Not sure
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues for duplicates.
+          required: true
+        - label: I removed credentials, tokens and other sensitive information.
+          required: true
