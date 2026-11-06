@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Please cite this software repository and the exact commit or release used for your experiments."
+type: software
+title: "PulseBridge Community Edition: ESP32–Linux USB-Serial Protocol Research Testbed"
+authors:
+  - family-names: "Sakhalkar"
+    given-names: "Aditya Arvind"
+repository-code: "https://github.com/Aditya123130/PulseBridge-Community"
+license: Apache-2.0
+keywords:
+  - embedded-systems
+  - esp32
+  - raspberry-pi
+  - usb-uart
+  - protocol-reliability
+  - reproducible-research

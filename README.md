@@ -55,6 +55,16 @@ A physical ESP32-to-Raspberry-Pi/Linux USB-UART run was completed on **5 Novembe
 
 The Raspberry Pi reported `throttled=0x50005` during that session. The run therefore supports **functional physical hardware and Protocol 3 validation**, but its latency measurements are not presented as a clean, power-qualified performance benchmark. Live broker integration and hosted language-model connectivity also remain outside the validated Community Edition scope. The bundled simulator remains software evidence only.
 
+## Research reproducibility and citation
+
+The [research reproducibility guide](RESEARCH_REPRODUCIBILITY.md) explains which claims the archived physical run supports, which evidence is missing, and how to design an independently repeatable study. Run the standard-library evidence validator from the repository root:
+
+```sh
+python3 tools/validate_hardware_evidence.py
+```
+
+This checks the published snapshot for internal consistency; it **does not** reproduce raw p95/p99 values or certify the run as a power-qualified benchmark. The archived Pi health flags remain nonzero. Cite the exact source version using [CITATION.cff](CITATION.cff) when referencing this software.
+
 ## Development
 
 The project is maintained by its developer with coding assistance from OpenAI Codex. AI assistance does not replace testing, review, licensing or release responsibility.
