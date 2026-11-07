@@ -52,13 +52,11 @@ def main(argv=None):
         exists = importlib.util.find_spec(module) is not None
         add('PASS' if exists else 'FAIL' if required else 'WARN', module,
             'available' if exists else 'missing; run setup_pi.sh / setup_live.sh')
-    required_files = ['terminal/static/index.html', 'terminal/static/app.js', 'terminal/static/style.css',
-                      'terminal/static/chart-kit.js', 'terminal/static/workstation.css',
-                      'terminal/static/research-ui.js', 'terminal/static/research-ui.css',
-                      'terminal/static/v8-ui.js', 'terminal/static/v8.css',
+    required_files = ['pi/app.py', 'pi/doctor.py', 'pi/protocol.py', 'pi/transport.py',
+                      'pi/static/index.html', 'pi/static/app.js', 'pi/static/style.css',
                       'firmware/PulseBridgeESP32/board_config.h']
     missing = [p for p in required_files if not (ROOT/p).is_file()]
-    add('FAIL' if missing else 'PASS', 'Project files', ', '.join(missing) if missing else 'dashboard and firmware present')
+    add('FAIL' if missing else 'PASS', 'Project files', ', '.join(missing) if missing else 'Community dashboard and firmware present')
     try:
         args.data_dir.mkdir(parents=True, exist_ok=True)
         space = shutil.disk_usage(args.data_dir).free
